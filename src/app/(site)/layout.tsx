@@ -130,7 +130,7 @@ export default async function RootLayout({
                   --swiper-navigation-size: 30px;
                   --top-header-background: ${data.appearances?.topHeaderBar?.topHeaderBarBgColor};
                   --top-header-text-color: ${data.appearances?.topHeaderBar?.topHeaderBarTextColor};
-                  --primary-accent: ${data.appearances?.primaryAccent ?? '#cccccc'};
+                  --primary-accent: ${data.appearances?.primaryAccent ?? '#000000'};
                   --radio-color: ${data.appearances?.primaryAccent ?? '#cccccc'};
 
                   --footer-background-color: ${data.appearances?.footerBg ?? '#0d1321'};
@@ -140,7 +140,7 @@ export default async function RootLayout({
                   --primary-button-text: ${data.appearances?.primaryButtonText ?? '#000000'};
                   --secondary-button-background: ${data.appearances?.secondaryButtonBg ?? 'transparent'};
                   --secondary-button-text: ${data.appearances?.secondaryButtonText ?? '#cccccc'};
-                  --secondary-color: ${data.appearances?.secondaryColor ?? '#cccccc'};
+                  --secondary-color: ${data.appearances?.secondaryColor ?? '#000000'};
 
                   --header-background-color: ${data.appearances?.navBgColor ? data.appearances?.navBgColor : 'transparent'};
                   --header-navigation-color: ${data.appearances?.navColor ?? '#ffffff'};
@@ -163,7 +163,7 @@ export default async function RootLayout({
         </style>
         <Navbar
           company_name={data.profileSettings?.company_name}
-          logo={data.appearances?.branding.logo?.asset?.url}
+          logo={data.appearances?.branding?.logo?.asset?.url}
           navItems={data.appearances?.header?.mainNav?.navItems}
           logoWidth={data.appearances?.branding?.logoWidth}
           mobileLogoWidth={data.appearances?.branding?.mobileLogoWidth}

@@ -23,13 +23,15 @@ import TestimonialSwiper from "./testimonial-swiper";
 import FeaturedGridImageTextOutside from "./featured-grid-image";
 import FeaturedGridImageTextInside from "./featured-grid-text-inside";
 import FeaturedGridBox from "./feature-grid-box";
+import Map from "./map";
+import AvailabilityTable from "./availability-table";
 
 interface Props {
     pageBuilder: any[];
-    allTestimonials: any[];
-    allServices: any[];
-    allTeam: any[];
-    allBlog: any[];
+    allTestimonials: any;
+    allBlog: any;
+    allNeighborhood: any;
+    allAvailabilities: any;
     // CONTACT
     email: string;
     phone_number: string;
@@ -58,9 +60,9 @@ interface Props {
 export default function Main({
     pageBuilder,
     allTestimonials,
-    allServices,
-    allTeam,
     allBlog,
+    allNeighborhood,
+    allAvailabilities,
     // CONTACT
     email,
     phone_number,
@@ -137,7 +139,6 @@ export default function Main({
                     border: `1px solid ${section?.secondaryButton?.buttonBorderColor?.hex}`
                 }
 
-
                 if (section._type === 'hero') {
                     return (
                         <>
@@ -174,6 +175,47 @@ export default function Main({
                                 />
                             }
                         </>
+                    );
+                }
+
+                if (section._type === 'mapDisplay') {
+                    return (
+                        <Map
+                            key={section?._key}
+                            content={section?.content}
+                            textAlign={section?.textAlign}
+                            backgroundStyles={backgroundStyles}
+                            mapNames={allNeighborhood?.neighborhoods}
+                            condo={allNeighborhood?.condo}
+                            // PRIMARY BUTTON
+                            primaryButtonText={section?.buttonLinking?.buttonText}
+                            primaryButtonLink={section?.buttonLinking}
+                            primaryButtonStyle={primaryButton}
+                            // SECONDARY BUTTON
+                            secondaryButtonLink={section?.secondButtonLinking}
+                            secondaryButtonText={section?.secondButtonLinking?.buttonText}
+                            secondaryButtonStyle={secondaryButton}
+                        />
+                    );
+                }
+
+                if (section._type === 'availabilityDisplay') {
+                    return (
+                        <AvailabilityTable
+                            key={section?._key}
+                            content={section?.content}
+                            textAlign={section?.textAlign}
+                            backgroundStyles={backgroundStyles}
+                            availabilities={allAvailabilities}
+                            // PRIMARY BUTTON
+                            primaryButtonText={section?.buttonLinking?.buttonText}
+                            primaryButtonLink={section?.buttonLinking}
+                            primaryButtonStyle={primaryButton}
+                            // SECONDARY BUTTON
+                            secondaryButtonLink={section?.secondButtonLinking}
+                            secondaryButtonText={section?.secondButtonLinking?.buttonText}
+                            secondaryButtonStyle={secondaryButton}
+                        />
                     );
                 }
 
@@ -520,70 +562,6 @@ export default function Main({
                                 />
                             }
                         </>
-                    );
-                }
-
-                if (section._type === 'servicesDisplay') {
-                    return (
-                        <>
-                            {section?.layoutType === 'noImage' ?
-                                <ServicesNoImage
-                                    key={section?._key}
-                                    services={allServices}
-                                    columnNumber={section?.columnNumber}
-                                    content={section?.content}
-                                    imageData={section?.imageData?.asset?.url}
-                                    textAlign={section?.textAlign}
-                                    backgroundStyles={backgroundStyles}
-                                    // PRIMARY BUTTON
-                                    primaryButtonText={section?.buttonLinking?.buttonText}
-                                    primaryButtonLink={section?.buttonLinking}
-                                    primaryButtonStyle={primaryButton}
-                                    // SECONDARY BUTTON
-                                    secondaryButtonLink={section?.secondButtonLinking}
-                                    secondaryButtonText={section?.secondButtonLinking?.buttonText}
-                                    secondaryButtonStyle={secondaryButton}
-                                />
-                                :
-                                <ServiceGrid
-                                    key={section?._key}
-                                    services={allServices}
-                                    content={section?.content}
-                                    imageData={section?.imageData?.asset?.url}
-                                    columnNumber={section?.columnNumber}
-                                    textAlign={section?.textAlign}
-                                    backgroundStyles={backgroundStyles}
-                                    // PRIMARY BUTTON
-                                    primaryButtonText={section?.buttonLinking?.buttonText}
-                                    primaryButtonLink={section?.buttonLinking}
-                                    primaryButtonStyle={primaryButton}
-                                    // SECONDARY BUTTON
-                                    secondaryButtonLink={section?.secondButtonLinking}
-                                    secondaryButtonText={section?.secondButtonLinking?.buttonText}
-                                    secondaryButtonStyle={secondaryButton}
-                                />
-                            }
-                        </>
-                    );
-                }
-
-                if (section._type === 'teamDisplay') {
-                    return (
-                        <TeamComponent
-                            key={section?._key}
-                            team={allTeam}
-                            content={section?.content}
-                            textAlign={section?.textAlign}
-                            backgroundStyles={backgroundStyles}
-                            // PRIMARY BUTTON
-                            primaryButtonText={section?.buttonLinking?.buttonText}
-                            primaryButtonLink={section?.buttonLinking}
-                            primaryButtonStyle={primaryButton}
-                            // SECONDARY BUTTON
-                            secondaryButtonLink={section?.secondButtonLinking}
-                            secondaryButtonText={section?.secondButtonLinking?.buttonText}
-                            secondaryButtonStyle={secondaryButton}
-                        />
                     );
                 }
 

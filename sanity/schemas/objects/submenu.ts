@@ -34,10 +34,8 @@ export default defineType({
             hidden: ({ parent }) => parent?.linkType !== "internal",
             to: [
                 { type: 'blog' },
-                { type: 'author' },
                 { type: 'pages' },
-                { type: 'location' },
-                { type: 'services' }
+                { type: 'legal' },
             ],
         },
         {

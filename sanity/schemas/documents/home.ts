@@ -45,11 +45,10 @@ export default defineType({
                 {type: 'codeBlock'},
                 {type: 'contactPage'},
                 {type: 'testimonialBuilder'},
-                {type: 'teamDisplay'},
                 {type: 'blogDisplay'},
-                {type: 'servicesDisplay'},
                 {type: 'leadForm'},
-
+                {type: 'mapDisplay'},
+                {type: 'availabilityDisplay'},
             ]
         }
     ]

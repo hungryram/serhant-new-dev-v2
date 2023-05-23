@@ -2,15 +2,16 @@
  * This configuration is used to for the Sanity Studio that’s mounted on the `\src\app\admin\[[...index]]\page.tsx` route
  */
 
-import {visionTool} from '@sanity/vision'
-import {defineConfig} from 'sanity'
-import {deskTool} from 'sanity/desk'
+import { visionTool } from '@sanity/vision'
+import { defineConfig } from 'sanity'
+import { deskTool } from 'sanity/desk'
 import { colorInput } from "@sanity/color-input";
 import { MdOutlineDesignServices, MdPersonOutline } from "react-icons/md"
-import {apiVersion, dataset, projectId} from './sanity/env'
-import {media} from 'sanity-plugin-media'
+import { apiVersion, dataset, projectId } from './sanity/env'
+import { media } from 'sanity-plugin-media'
 import { settingsPlugin } from './sanity/settings';
 import { PreviewPlugin } from './sanity/productionUrl';
+import { googleMapsInput } from '@sanity/google-maps-input';
 
 //  DOCUMENTS
 import authorType from './sanity/schemas/documents/author'
@@ -20,11 +21,12 @@ import profileDocument from './sanity/schemas/documents/profile'
 import pagesDocument from './sanity/schemas/documents/pages'
 import appearanceDocument from './sanity/schemas/documents/appearance'
 import testimonialsDocument from './sanity/schemas/documents/testimonials'
-import teamDocument from './sanity/schemas/documents/team'
 import navigationDocument from './sanity/schemas/documents/navigation'
-import servicesDocument from './sanity/schemas/documents/services'
 import legalDocument from './sanity/schemas/documents/legal'
 import pageSettingsDocument from "./sanity/schemas/documents/page-settings"
+import neighborhoodDocument from './sanity/schemas/documents/neighborhood';
+import availabilitiesDocument from './sanity/schemas/documents/availabilities';
+
 // OBJECTS
 import contentObject from './sanity/schemas/objects/content'
 import seoObject from './sanity/schemas/objects/seo'
@@ -61,7 +63,8 @@ import teamSectionBuilder from './sanity/schemas/pagebuilder/team-section'
 import blogSectionBuilder from './sanity/schemas/pagebuilder/blog-section'
 import servicesSectionBuilder from './sanity/schemas/pagebuilder/service-section'
 import contentBuilder from './sanity/schemas/pagebuilder/content'
-
+import mapSectionBuilder from './sanity/schemas/pagebuilder/map-section';
+import availabilitiesBuilder from './sanity/schemas/pagebuilder/availabilities-section';
 
 export default defineConfig({
   basePath: '/admin',
@@ -70,7 +73,7 @@ export default defineConfig({
   // Add and edit the content schema in the './sanity/schema' folder
   schema: {
     types: [
-            // DOCUMENTS
+      // DOCUMENTS
       // settingsType,
       appearanceDocument,
       profileDocument,
@@ -78,9 +81,9 @@ export default defineConfig({
       homeDocument,
       navigationDocument,
       pagesDocument,
-      servicesDocument,
-      teamDocument,
       testimonialsDocument,
+      neighborhoodDocument,
+      availabilitiesDocument,
       // pressDocument,
       postType,
       authorType,
@@ -120,6 +123,8 @@ export default defineConfig({
       servicesSectionBuilder,
       contentBuilder,
       logosBuilder,
+      mapSectionBuilder,
+      availabilitiesBuilder
     ]
   },
   plugins: [
@@ -158,26 +163,49 @@ export default defineConfig({
                 .documentId(pageSettingsDocument.name)
             )
 
+        const NeighborhoodListItem = // A singleton not using `documentListItem`, eg no built-in preview
+          S.listItem()
+            .title(neighborhoodDocument.title || '')
+            .child(
+              S.editor()
+                .id(neighborhoodDocument.name)
+                .schemaType(neighborhoodDocument.name)
+                .documentId(neighborhoodDocument.name)
+            )
+
+            const AvailabilitiesListItem = // A singleton not using `documentListItem`, eg no built-in preview
+            S.listItem()
+              .title(availabilitiesDocument.title || '')
+              .child(
+                S.editor()
+                  .id(availabilitiesDocument.name)
+                  .schemaType(availabilitiesDocument.name)
+                  .documentId(availabilitiesDocument.name)
+              )
+
         // The default root list items (except custom ones)
         const defaultListItems = S.documentTypeListItems().filter((listItem) => {
           const listItemID = listItem.getId();
           return (
             listItemID &&
-            ![appearanceDocument.name, pageSettingsDocument.name, 'media.tag', profileDocument.name].includes(listItemID)
+            ![appearanceDocument.name, pageSettingsDocument.name, neighborhoodDocument.name, availabilitiesDocument.name, 'media.tag', profileDocument.name].includes(listItemID)
           );
         });
-        
+
         return S.list()
           .title('Content')
-          .items([profileListItem, appearanceListItem, PageSettingsListItem, S.divider(), ...defaultListItems])
+          .items([profileListItem, appearanceListItem, PageSettingsListItem, S.divider(), NeighborhoodListItem, AvailabilitiesListItem, S.divider(), ...defaultListItems])
       },
     }),
-    settingsPlugin({types: [appearanceDocument.name, pageSettingsDocument.name, profileDocument.name]}),
-    PreviewPlugin({types: ['pages', 'team', 'legal', 'services', 'blog', 'homeDesign']}),
+    googleMapsInput({
+      apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API
+    }),
+    settingsPlugin({ types: [appearanceDocument.name, pageSettingsDocument.name, profileDocument.name] }),
+    PreviewPlugin({ types: ['pages', 'team', 'legal', 'services', 'blog', 'homeDesign'] }),
     colorInput(),
     // Vision is a tool that lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
-    visionTool({defaultApiVersion: apiVersion}),
+    visionTool({ defaultApiVersion: apiVersion }),
     media(),
   ]
 })

@@ -32,7 +32,6 @@ export default defineType({
                 { type: 'blog' },
                 { type: 'pages' },
                 { type: 'legal' },
-                { type: 'services' },
             ],
         },
         {

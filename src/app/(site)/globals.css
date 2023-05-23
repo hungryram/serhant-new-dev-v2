@@ -18,7 +18,11 @@ body {
 }
 
 .accent {
-  color: var(--primary-accent)
+  color: var(--primary-accent);
+}
+
+.secondary-accent {
+  color: var(--secondary-color);
 }
 
 .bg-accent {

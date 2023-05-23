@@ -91,6 +91,7 @@ export default async function Page({ params }: Props) {
             />
             <Main
                 pageBuilder={page?.pages?.pageBuilder}
+
                 // CONTACT
                 email={page?.profileSettings?.contact_information?.email}
                 phone_number={page?.profileSettings?.contact_information?.phone_number}
@@ -116,10 +117,10 @@ export default async function Page({ params }: Props) {
                 emailBcc={page?.profileSettings?.settings?.emailBcc}
                 emailCc={page?.profileSettings?.settings?.emailCc}
                 // PAGE FOLDERS
-                allServices={page?.allServices}
                 allTestimonials={page?.allTestimonial}
                 allBlog={page?.allBlog}
-                allTeam={page?.allTeam}
+                allNeighborhood={page?.allNeighborhood}
+                allAvailabilities={page?.allAvailabilities}
             />
         </>
     )
