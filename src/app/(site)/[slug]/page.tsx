@@ -70,16 +70,16 @@ export default async function Page({ params }: Props) {
         "@context": "https://schema.org",
         "@type": "WebPage",
         ...page?.pages?.title && { "name": page.pages.title },
-        ...page?.profileSettings?.settings?.websiteName && { "url": page.profileSettings.settings.websiteName },
-        ...page?.pages?.seo?.meta_description && { "description": page.pages.seo.meta_description },
+        ...page?.profileSettings?.settings?.websiteName && { "url": page.profileSettings?.settings?.websiteName },
+        ...page?.pages?.seo?.meta_description && { "description": page.pages?.seo?.meta_description },
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": `${page?.profileSettings?.settings?.websiteName}/${slug}`
         },
         "publisher": {
             "@type": "Organization",
-            ...page?.profileSettings?.company_name && { "name": page.profileSettings.company_name },
-            ...page?.profileSettings?.settings?.websiteName && { "url": page.profileSettings.settings.websiteName }
+            ...page?.profileSettings?.company_name && { "name": page.profileSettings?.company_name },
+            ...page?.profileSettings?.settings?.websiteName && { "url": page.profileSettings?.settings?.websiteName }
         }
     };
 
