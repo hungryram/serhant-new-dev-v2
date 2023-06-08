@@ -49,7 +49,7 @@ export default function FeaturedGridImageTextInside({
                 )}
                 <div className={Styles.featureGridWrap}>
                     <div className={`${Styles.featureGridContainer} grid grid-cols-1 lg:grid-cols-${columnNumber} ${content && 'mt-16'}`}>
-                        {blocks?.map((node: any) => {
+                        {blocks?.map((node: any, i: number) => {
 
                             const blockLink: any = node?.blockLinking?.internalLink
                             const linkUrl =
@@ -62,7 +62,7 @@ export default function FeaturedGridImageTextInside({
                                 (node.blockLinking?.externalUrl && `${node.blockLinking?.externalUrl}`);
 
                             return (
-                                <div className="relative isolate flex flex-col bg-black justify-end overflow-hidden rounded-sm px-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
+                                <div className="relative isolate flex flex-col bg-black justify-end overflow-hidden rounded-sm px-8 pb-8 pt-80 sm:pt-48 lg:pt-80" key={i}>
                                     {node?.image?.asset?.url ?
                                         <Image
                                             src={node?.image?.asset?.url}

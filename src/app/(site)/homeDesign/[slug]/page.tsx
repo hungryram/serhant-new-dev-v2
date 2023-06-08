@@ -34,9 +34,9 @@ export default async function servicesSlug({ params }: Props) {
             <Main
                 pageBuilder={home?.homeDesign?.pageBuilder}
                 allTestimonials={home?.allTestimonial}
-                allServices={home?.allServices}
-                allTeam={home?.allTeam}
-                allBlog={home.allBlog}
+                allBlog={home?.allBlog}
+                allNeighborhood={home?.allNeighborhood}
+                allAvailabilities={home?.allAvailabilities}
                 // CONTACT
                 email={home?.profileSettings?.contact_information?.email}
                 phone_number={home?.profileSettings?.contact_information?.phone_number}

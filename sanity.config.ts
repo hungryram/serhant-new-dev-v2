@@ -198,7 +198,7 @@ export default defineConfig({
       },
     }),
     googleMapsInput({
-      apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API
+      apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API || ''
     }),
     settingsPlugin({ types: [appearanceDocument.name, pageSettingsDocument.name, profileDocument.name] }),
     PreviewPlugin({ types: ['pages', 'team', 'legal', 'services', 'blog', 'homeDesign'] }),
