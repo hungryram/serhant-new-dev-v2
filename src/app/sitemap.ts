@@ -8,10 +8,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const websiteName = pages?.profileSettings?.settings?.websiteName
 
   // Generate the sitemap for blog
-  const blogUrl = pages?.blog?.map((page: any) => ({
-    url: `${websiteName}/blog/${page.slug}`,
-    lastModified: page?._updatedAt,
-  }));
+  // const blogUrl = pages?.blog?.map((page: any) => ({
+  //   url: `${websiteName}/blog/${page.slug}`,
+  //   lastModified: page?._updatedAt,
+  // }));
 
   // Generate the sitemap for legal
   const legalUrl = pages?.blog?.map((page: any) => ({
@@ -32,17 +32,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
     },
     {
-      url: `${websiteName}/blog/`,
-      lastModified: new Date(),
-    },
-    {
       url: `${websiteName}/legal/`,
       lastModified: new Date(),
     },
   ];
 
   // Concatenate the dynamic and static sitemap entries
-  const allEntries = [...staticEntries, ...blogUrl, ...legalUrl, ...pageUrl];
+  const allEntries = [...staticEntries, ...legalUrl, ...pageUrl];
 
   return allEntries;
 }
